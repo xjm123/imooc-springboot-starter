@@ -16,13 +16,15 @@ import com.imooc.service.UserService;
 
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
+	@Resource
 	private SysUserMapper userMapper;
 	
-	@Autowired
+	@Autowired(required = false)
 	private SysUserMapperCustom userMapperCustom;
 	
 	@Override

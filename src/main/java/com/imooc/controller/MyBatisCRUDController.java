@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imooc.pojo.IMoocJSONResult;
@@ -85,10 +86,13 @@ public class MyBatisCRUDController {
 	}
 	
 	@RequestMapping("/queryUserListPaged")
-	public IMoocJSONResult queryUserListPaged(Integer page) {
-		
+	public IMoocJSONResult queryUserListPaged(@RequestParam(value = "page", required = false)  String page) {
+
+		Integer pageS = 1;
 		if (page == null) {
-			page = 1;
+			pageS = 1;
+		}else{
+			pageS = Integer.valueOf(page);
 		}
 
 		int pageSize = 10;
@@ -96,7 +100,7 @@ public class MyBatisCRUDController {
 		SysUser user = new SysUser();
 //		user.setNickname("lee");
 		
-		List<SysUser> userList = userService.queryUserListPaged(user, page, pageSize);
+		List<SysUser> userList = userService.queryUserListPaged(user, pageS, pageSize);
 		
 		return IMoocJSONResult.ok(userList);
 	}
